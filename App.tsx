@@ -1,45 +1,69 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import React from "react";
+import { StatusBar } from "react-native";
 import {
   SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+  SafeAreaView,
+} from "react-native-safe-area-context";
+import { Provider } from "react-redux";
+import { NavigationContainer } from "@react-navigation/native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { StyleSheet } from "react-native";
+import type { AppTheme } from "./src/theme/theme";
+import { store } from "./src/store/store";
+import AppNavigator from "./src/navigation/AppNavigator";
+import SocketInitializer from "./src/components/socket/SocketInitializer";
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
+import {
+  AppThemeProvider,
+  useAppTheme,
+} from "./src/theme/ThemeContext";
 
 function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
+  const { theme } = useAppTheme();
+  const styles = createStyles(theme);
 
   return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
+    <>
+      <NavigationContainer>
+        <SafeAreaView style={styles.container}>
+          <SocketInitializer />
+
+          <StatusBar
+            barStyle={
+              theme.mode === "dark"
+                ? "light-content"
+                : "dark-content"
+            }
+            backgroundColor={theme.colors.background}
+          />
+
+          <AppNavigator />
+        </SafeAreaView>
+      </NavigationContainer>
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+function App() {
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Provider store={store}>
+        <AppThemeProvider>
+          <SafeAreaProvider>
+            <AppContent />
+          </SafeAreaProvider>
+        </AppThemeProvider>
+      </Provider>
+    </GestureHandlerRootView>
+  );
+}
+
+export const createStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+  });
 
 export default App;
