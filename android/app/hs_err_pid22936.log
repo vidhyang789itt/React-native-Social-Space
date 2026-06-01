@@ -1,0 +1,241 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 532676608 bytes. Error detail: G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   This process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Zero Based Compressed Oops mode in which the Java heap is
+#     placed in the first 32GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 32GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3690), pid=22936, tid=17212
+#
+# JRE version:  (17.0.18+8) (build )
+# Java VM: OpenJDK 64-Bit Server VM (17.0.18+8-LTS, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: com.google.prefab.cli.AppKt --build-system cmake --platform android --abi arm64-v8a --os-version 24 --stl c++_shared --ndk-version 27 --output C:\\Users\\VIDHYA~1.JAI\\AppData\\Local\\Temp\\agp-prefab-staging1729204103109208762\\staged-cli-output C:\\Users\\vidhyang.jain\\.gradle\\caches\\9.3.1\\transforms\\2321ffcfab7439b6200de4724cf7ba76\\workspace\\transformed\\react-android-0.85.3-debug\\prefab C:\\Users\\vidhyang.jain\\.gradle\\caches\\9.3.1\\transforms\\cd51c00f5529eb545445290c3eb1d1b6\\workspace\\transformed\\hermes-android-250829098.0.10-debug\\prefab C:\\Users\\vidhyang.jain\\.gradle\\caches\\9.3.1\\transforms\\3c01aea05d2737e987399f1309ae090e\\workspace\\transformed\\fbjni-0.7.0\\prefab
+
+Host: 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz, 8 cores, 31G,  Windows 11 , 64 bit Build 22621 (10.0.22621.5415)
+Time: Fri May  8 15:41:13 2026 India Standard Time elapsed time: 0.137188 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000013eff99a8b0):  JavaThread "Unknown thread" [_thread_in_vm, id=17212, stack(0x000000387bd00000,0x000000387be00000)]
+
+Stack: [0x000000387bd00000,0x000000387be00000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x68c879]  (no source info available)
+V  [jvm.dll+0x845979]  (no source info available)
+V  [jvm.dll+0x8476e8]  (no source info available)
+V  [jvm.dll+0x847d73]  (no source info available)
+V  [jvm.dll+0x24cf6f]  (no source info available)
+V  [jvm.dll+0x68bc79]  (no source info available)
+V  [jvm.dll+0x68023a]  (no source info available)
+V  [jvm.dll+0x3101a0]  (no source info available)
+V  [jvm.dll+0x310042]  (no source info available)
+V  [jvm.dll+0x317599]  (no source info available)
+V  [jvm.dll+0x369999]  (no source info available)
+V  [jvm.dll+0x369bcd]  (no source info available)
+V  [jvm.dll+0x2e69aa]  (no source info available)
+V  [jvm.dll+0x2e78b8]  (no source info available)
+V  [jvm.dll+0x81871e]  (no source info available)
+V  [jvm.dll+0x377601]  (no source info available)
+V  [jvm.dll+0x7f6d65]  (no source info available)
+V  [jvm.dll+0x3fd47b]  (no source info available)
+V  [jvm.dll+0x3ff0b1]  (no source info available)
+C  [jli.dll+0x52f0]  (no source info available)
+C  [ucrtbase.dll+0x29333]  (no source info available)
+C  [KERNEL32.DLL+0x1259d]  (no source info available)
+C  [ntdll.dll+0x5af78]  (no source info available)
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ff84d9c6058, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x0000013effdb0780 GCTaskThread "GC Thread#0" [stack: 0x000000387be00000,0x000000387bf00000] [id=5220]
+  0x0000013effa18630 ConcurrentGCThread "G1 Main Marker" [stack: 0x000000387bf00000,0x000000387c000000] [id=8904]
+  0x0000013effa18e60 ConcurrentGCThread "G1 Conc#0" [stack: 0x000000387c000000,0x000000387c100000] [id=19052]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ff84d1774e7]
+
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x0000013eff995990] Heap_lock - owner thread: 0x0000013eff99a8b0
+
+Heap address: 0x0000000604c00000, size: 8116 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+<Empty>
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x0000000604c00000, 0x0000000800000000)
+  region size 4096K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ff84d568929]
+
+GC Heap History (0 events):
+No events
+
+Dll operation events (1 events):
+Event: 0.120 Loaded shared library C:\Program Files\Microsoft\jdk-17.0.18.8-hotspot\bin\java.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes loaded (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Memory protections (0 events):
+No events
+
+Nmethod flushes (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff6803c0000 - 0x00007ff6803ce000 	C:\Program Files\Microsoft\jdk-17.0.18.8-hotspot\bin\java.exe
+0x00007ff8f6710000 - 0x00007ff8f6928000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ff8f5360000 - 0x00007ff8f5424000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ff8f3ad0000 - 0x00007ff8f3ea3000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ff8f33d0000 - 0x00007ff8f3585000 	C:\Windows\system32\hmpalert.dll
+0x00007ff8f31e0000 - 0x00007ff8f33cc000 	C:\WINDOWS\System32\SophosED\SophosED.dll
+0x00007ff8f3eb0000 - 0x00007ff8f3fc1000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ff8d8840000 - 0x00007ff8d8858000 	C:\Program Files\Microsoft\jdk-17.0.18.8-hotspot\bin\jli.dll
+0x00007ff8f4470000 - 0x00007ff8f4622000 	C:\WINDOWS\System32\USER32.dll
+0x00007ff8f41c0000 - 0x00007ff8f41e6000 	C:\WINDOWS\System32\win32u.dll
+0x00007ff8f43b0000 - 0x00007ff8f43d9000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ff8f4290000 - 0x00007ff8f43ab000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ff8f41f0000 - 0x00007ff8f428a000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ff8d7a60000 - 0x00007ff8d7a7e000 	C:\Program Files\Microsoft\jdk-17.0.18.8-hotspot\bin\VCRUNTIME140.dll
+0x00007ff8cf5f0000 - 0x00007ff8cf88c000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.22621.6060_none_2712eda17382d24b\COMCTL32.dll
+0x00007ff8f57c0000 - 0x00007ff8f5867000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ff8f5870000 - 0x00007ff8f58a1000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ff8e4e20000 - 0x00007ff8e4e2c000 	C:\Program Files\Microsoft\jdk-17.0.18.8-hotspot\bin\vcruntime140_1.dll
+0x00007ff896ff0000 - 0x00007ff897079000 	C:\Program Files\Microsoft\jdk-17.0.18.8-hotspot\bin\msvcp140.dll
+0x00007ff84ce80000 - 0x00007ff84dafa000 	C:\Program Files\Microsoft\jdk-17.0.18.8-hotspot\bin\server\jvm.dll
+0x00007ff8f58b0000 - 0x00007ff8f5961000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ff8f55f0000 - 0x00007ff8f5698000 	C:\WINDOWS\System32\sechost.dll
+0x00007ff8f3a20000 - 0x00007ff8f3a48000 	C:\WINDOWS\System32\bcrypt.dll
+0x00007ff8f48e0000 - 0x00007ff8f49f8000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ff8f4860000 - 0x00007ff8f48d1000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ff8eadc0000 - 0x00007ff8eadca000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ff8f30c0000 - 0x00007ff8f310d000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007ff8eb3b0000 - 0x00007ff8eb3e4000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ff8f3040000 - 0x00007ff8f3053000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007ff8f2330000 - 0x00007ff8f2348000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ff8e4200000 - 0x00007ff8e420a000 	C:\Program Files\Microsoft\jdk-17.0.18.8-hotspot\bin\jimage.dll
+0x00007ff8f0ab0000 - 0x00007ff8f0ce3000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ff8f5c80000 - 0x00007ff8f6011000 	C:\WINDOWS\System32\combase.dll
+0x00007ff8f4650000 - 0x00007ff8f4728000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ff8c9dc0000 - 0x00007ff8c9df2000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ff8f3fd0000 - 0x00007ff8f404b000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ff8d69d0000 - 0x00007ff8d69f6000 	C:\Program Files\Microsoft\jdk-17.0.18.8-hotspot\bin\java.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Program Files\Microsoft\jdk-17.0.18.8-hotspot\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\System32\SophosED;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.22621.6060_none_2712eda17382d24b;C:\Program Files\Microsoft\jdk-17.0.18.8-hotspot\bin\server
+
+VM Arguments:
+java_command: com.google.prefab.cli.AppKt --build-system cmake --platform android --abi arm64-v8a --os-version 24 --stl c++_shared --ndk-version 27 --output C:\\Users\\VIDHYA~1.JAI\\AppData\\Local\\Temp\\agp-prefab-staging1729204103109208762\\staged-cli-output C:\\Users\\vidhyang.jain\\.gradle\\caches\\9.3.1\\transforms\\2321ffcfab7439b6200de4724cf7ba76\\workspace\\transformed\\react-android-0.85.3-debug\\prefab C:\\Users\\vidhyang.jain\\.gradle\\caches\\9.3.1\\transforms\\cd51c00f5529eb545445290c3eb1d1b6\\workspace\\transformed\\hermes-android-250829098.0.10-debug\\prefab C:\\Users\\vidhyang.jain\\.gradle\\caches\\9.3.1\\transforms\\3c01aea05d2737e987399f1309ae090e\\workspace\\transformed\\fbjni-0.7.0\\prefab
+java_class_path (initial): C:\\Users\\vidhyang.jain\\.gradle\\caches\\modules-2\\files-2.1\\com.google.prefab\\cli\\2.1.0\\aa32fec809c44fa531f01dcfb739b5b3304d3050\\cli-2.1.0-all.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 2                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 8                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 4194304                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 532676608                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 8510242816                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 4194304                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5839372                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122909434                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122909434                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 8510242816                             {manageable} {ergonomic}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Microsoft\jdk-17.0.18.8-hotspot\
+PATH=C:\SocialSpaceFrontend\node_modules\.bin;C:\SocialSpaceFrontend\node_modules\.bin;C:\node_modules\.bin;C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\run-script\lib\node-gyp-bin;c:\Users\vidhyang.jain\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\vidhyang.jain\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Users\vidhyang.jain\AppData\Local\Programs\Microsoft VS Code;C:\Program Files\Microsoft\jdk-17.0.18.8-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\MongoDB\Server\8.2\bin;C:\ProgramData\chocolatey\bin;C:\Users\vidhyang.jain\AppData\Local\Android\Sdk\platform-tools;C:\Users\vidhyang.jain\AppData\Local\Microsoft\WindowsApps;C:\Users\vidhyang.jain\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\vidhyang.jain\AppData\Roaming\npm;C:\Users\vidhyang.jain\AppData\Local\Programs\Antigravity\bin
+USERNAME=vidhyang.jain
+LANG=en_US.UTF-8
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 140 Stepping 1, GenuineIntel
+TMP=C:\Users\VIDHYA~1.JAI\AppData\Local\Temp
+TEMP=C:\Users\VIDHYA~1.JAI\AppData\Local\Temp
+
+
+
+Periodic native trim disabled
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 22621 (10.0.22621.5415)
+OS uptime: 0 days 17:07 hours
+Hyper-V role detected
+
+CPU: total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 140 stepping 1 microcode 0xbe, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, avx512f, avx512dq, avx512cd, avx512bw, avx512vl, sha, fma, vzeroupper, avx512_vpopcntdq, avx512_vpclmulqdq, avx512_vaes, avx512_vnni, clflush, clflushopt, clwb, avx512_vbmi2, avx512_vbmi, hv
+Processor Information for the first 8 processors :
+  Max Mhz: 2419, Current Mhz: 2419, Mhz Limit: 2419
+
+Memory: 4k page, system-wide physical 32448M (11183M free)
+TotalPageFile size 63042M (AvailPageFile size 462M)
+current process WorkingSet (physical memory assigned to process): 13M, peak: 13M
+current process commit charge ("private bytes"): 65M, peak: 573M
+
+vm_info: OpenJDK 64-Bit Server VM (17.0.18+8-LTS) for windows-amd64 JRE (17.0.18+8-LTS), built on Jan 15 2026 18:50:45 by "MicrosoftCorporation" with MS VC++ 17.14 (VS2022)
+
+END.
