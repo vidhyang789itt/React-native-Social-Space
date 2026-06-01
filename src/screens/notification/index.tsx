@@ -119,7 +119,7 @@ const NotificationItem = React.memo(({
           source={
             n.sender.profileUrl
               ? { uri: getImageUrl(n.sender.profileUrl) }
-              : require("../../assests/temp_profile.png")
+              : require("../../assests/temp_profile.webp")
           }
           style={styles.avatar}
         />

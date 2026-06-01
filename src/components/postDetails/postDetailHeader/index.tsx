@@ -11,6 +11,7 @@ import { formatDistanceToNow } from "date-fns";
 import { useAppTheme } from "../../../theme/ThemeContext";
 import { createStyles } from "../style";
 import { useNavigation } from "@react-navigation/native";
+import { getMediaUrl } from "../../../utils/getMediaUrl";
 
 
 interface Props {
@@ -33,10 +34,10 @@ export const PostDetailHeader = ({
   const navigation = useNavigation<any>();
   const profileUri =
     post.author?.profileUrl
-      ? `${BASE_URL}/${post.author.profileUrl}`
+      ? getMediaUrl(post.author.profileUrl)
       : undefined;
-      const { theme } = useAppTheme(); 
-      const styles = createStyles(theme);
+  const { theme } = useAppTheme();
+  const styles = createStyles(theme);
 
   return (
     <>
@@ -68,7 +69,7 @@ export const PostDetailHeader = ({
               source={
                 profileUri
                   ? { uri: profileUri }
-                  : require("../../../assests/temp_profile.png")
+                  : require("../../../assests/temp_profile.webp")
               }
               style={styles.avatar}
             />
@@ -81,16 +82,16 @@ export const PostDetailHeader = ({
               <Text style={styles.postTime}>
                 {post.createdAt
                   ? formatDistanceToNow(
-                      new Date(post.createdAt),
-                      {
-                        addSuffix: true,
-                      }
-                    )
+                    new Date(post.createdAt),
+                    {
+                      addSuffix: true,
+                    }
+                  )
                   : "Just now"}
               </Text>
             </View>
           </View>
-        
+
 
           {isOwner && (
             <View

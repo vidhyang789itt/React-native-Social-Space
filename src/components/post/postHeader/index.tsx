@@ -17,6 +17,7 @@ import type { Post } from "../../../types/post.types";
 import { BASE_URL } from "../../../constants/ApiRoutes";
 import { useAppTheme } from "../../../theme/ThemeContext";
 import { createStyles } from "./style";
+import { getMediaUrl } from "../../../utils/getMediaUrl";
 
 
 interface Props {
@@ -40,7 +41,7 @@ export const PostHeader = memo(({
         onPress={() =>
           navigation.getParent()?.navigate("UserProfile", {
             userId:
-                post.author?.userId,
+              post.author?.userId,
           })
         }
       >
@@ -48,9 +49,9 @@ export const PostHeader = memo(({
           source={
             post.author?.profileUrl
               ? {
-                  uri: `${BASE_URL}/${post.author.profileUrl}`,
-                }
-              : require("../../../assests/temp_profile.png")
+                uri: getMediaUrl(post.author.profileUrl),
+              }
+              : require("../../../assests/temp_profile.webp")
           }
           style={styles.avatar}
         />
@@ -63,13 +64,13 @@ export const PostHeader = memo(({
           <Text style={styles.time}>
             {post.createdAt
               ? formatDistanceToNow(
-                  new Date(
-                    post.createdAt
-                  ),
-                  {
-                    addSuffix: true,
-                  }
-                )
+                new Date(
+                  post.createdAt
+                ),
+                {
+                  addSuffix: true,
+                }
+              )
               : "Just now"}
           </Text>
         </View>

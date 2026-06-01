@@ -52,7 +52,7 @@ const MembersSection = ({
   const getFullUrl = (url?: string) => {
     if (!url) {
       return Image.resolveAssetSource(
-        require("../../../assests/temp_profile.png")
+        require("../../../assests/temp_profile.webp")
       ).uri;
     }
 

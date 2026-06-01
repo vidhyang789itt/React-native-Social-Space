@@ -18,6 +18,7 @@ import { BASE_URL } from "../../../constants/ApiRoutes";
 import { User } from "../../../types/user.types";
 import { useAppTheme } from "../../../theme/ThemeContext";
 import { createStyles } from "./style";
+import { getMediaUrl } from "../../../utils/getMediaUrl";
 
 interface UserCardProps {
   user: User;
@@ -34,12 +35,12 @@ export const UserCard = memo(({
   const { user: currentUser } = useSelector(
     (state: RootState) => state.auth
   );
-  const { theme } = useAppTheme(); 
-  
-  
+  const { theme } = useAppTheme();
+
+
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  
+
   const mutualUsers = useMemo(() => {
     return user.followers
       ?.filter((id: string) =>
@@ -53,9 +54,9 @@ export const UserCard = memo(({
 
   const handlePress = useMemo(() => {
     return () => navigation.getParent()?.navigate("UserProfile", {
-        userId:
-            user.userId,
-      });
+      userId:
+        user.userId,
+    });
   }, [navigation, user.userId]);
 
   return (
@@ -68,8 +69,8 @@ export const UserCard = memo(({
         <Image
           source={
             user.profileUrl
-              ? { uri: `${BASE_URL}/${user.profileUrl}` }
-              : require("../../../assests/temp_profile.png")
+              ? { uri: getMediaUrl(user.profileUrl) }
+              : require("../../../assests/temp_profile.webp")
           }
           style={styles.avatar}
         />

@@ -20,19 +20,18 @@ export const useChat = (currentOpenedChatId?: string) => {
       socket.emit("sendMessage", data);
     } catch (error) {
       console.error("❌ Error emitting message:", error);
-    } 
+    }
 
     console.log(`data => ${data}`);
   };
-  
+
   const markAsRead = (
     conversationId: string,
     currentUserId: string,
     otherUserId: string
   ) => {
     const socket = getSocket();
-    console.log(conversationId);
-    
+
     if (socket?.connected) {
       socket.emit("markAsRead", {
         conversationId,
@@ -57,7 +56,7 @@ export const useChat = (currentOpenedChatId?: string) => {
     }
 
     try {
-      if(deleteForAll){
+      if (deleteForAll) {
         socket.emit("deleteMessage", {
           messageId,
           conversationId,
@@ -65,7 +64,7 @@ export const useChat = (currentOpenedChatId?: string) => {
           deleteForAll,
         });
       }
-      else{
+      else {
         dispatch(deleteMsgForMe(messageId));
       }
 
@@ -83,7 +82,7 @@ export const useChat = (currentOpenedChatId?: string) => {
     const socket = getSocket();
 
     console.log(groupData);
-    
+
 
     if (!socket) {
       console.error("❌ Socket not available");

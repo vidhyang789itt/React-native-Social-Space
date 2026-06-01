@@ -9,8 +9,8 @@ export const useHome = (initialPage: number = 1) => {
   const loading = useSelector((state: RootState) => state.posts.loading);
   const error = useSelector((state: RootState) => state.posts.error);
   const pagination = useSelector((state: RootState) => state.posts.pagination);
-
   const [page, setPage] = useState(initialPage);
+
 
   useEffect(() => {
     dispatch(fetchFeed(page));
@@ -36,6 +36,6 @@ export const useHome = (initialPage: number = 1) => {
     page,
     handleNext,
     handlePrev,
-    setPage,
+    setPage
   };
 };

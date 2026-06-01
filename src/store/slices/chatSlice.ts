@@ -56,7 +56,7 @@ const initialState: ChatState = {
   error: null,
   unreadChatCount: 0,
   onlineUsersLastUpdate: 0,
-    messagesPagination: {
+  messagesPagination: {
     currentPage: 1,
     totalPages: 0,
     totalMessages: 0,
@@ -118,7 +118,7 @@ export const fetchMessages = createAsyncThunk(
     try {
       const response = await getMessagesApi(conversationId, page, limit);
       console.log(response);
-      
+
       return response;
     } catch (err: any) {
       console.error("❌ fetchMessages error:", err.message);
@@ -276,9 +276,6 @@ const chatSlice = createSlice({
       const convIndex = state.conversations.findIndex(
         (c) => c._id === newMessage.conversationId
       );
-
-      console.log(convIndex);
-      
 
       if (convIndex !== -1) {
         const existingConv = state.conversations[convIndex];
@@ -529,7 +526,7 @@ const chatSlice = createSlice({
     },
     handleNewGroupReceived: (state, action) => {
       const newGroup = action.payload;
-      
+
       const groupExists = state.conversations.some(
         (conv) => conv._id === newGroup.groupId
       );
@@ -543,7 +540,7 @@ const chatSlice = createSlice({
           groupAdmin: newGroup.createdBy,
           groupImage: "",
           lastMessage: `${newGroup.groupName} group created`,
-          lastMessageSender : {
+          lastMessageSender: {
             _id: newGroup.createdBy,
             username: ""
           },
@@ -599,12 +596,12 @@ const chatSlice = createSlice({
           readBy: alreadyRead
             ? msg.readBy
             : [
-                ...(msg.readBy || []),
-                {
-                  userId: readBy as any,
-                  readAt,
-                },
-              ],
+              ...(msg.readBy || []),
+              {
+                userId: readBy as any,
+                readAt,
+              },
+            ],
         };
       });
     },
@@ -660,7 +657,7 @@ const chatSlice = createSlice({
             (c) => c._id === conversationId
           );
 
-          if(conversation){
+          if (conversation) {
             state.activeConversation = conversation;
           }
         }
@@ -693,7 +690,7 @@ const chatSlice = createSlice({
       })
       .addCase(fetchUnreadChatCount.fulfilled, (state, action) => {
         console.log(action.payload);
-        
+
         state.unreadChatCount = action.payload.count;
       })
       .addCase(createGroupChat.fulfilled, (state, action) => {
@@ -820,7 +817,7 @@ const chatSlice = createSlice({
       })
       .addCase(deleteMsgForMe.fulfilled, (state, action) => {
         console.log("✅ deleteMsgForMe: API Success", action.payload);
-        
+
         if (action.payload) {
           const messageId = action.payload;
           const msgIndex = state.activeMessages.findIndex(

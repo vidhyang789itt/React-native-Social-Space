@@ -43,7 +43,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
       : require("../../../assests/group_image.webp")
     : isDirect && otherUser?.profileUrl
       ? getFullUrl(otherUser.profileUrl)
-      : require("../../../assests/temp_profile.png");
+      : require("../../../assests/temp_profile.webp");
   const { theme } = useAppTheme();
   const styles = createStyles(theme);
 
@@ -87,7 +87,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
                   borderWidth: 2,
                 },
             ]}
-            defaultSource={require("../../../assests/temp_profile.png")}
+            defaultSource={require("../../../assests/temp_profile.webp")}
           />
           {isDirect && isOnline && <View style={styles.onlineIndicator} />}
         </View>

@@ -21,6 +21,7 @@ import { formatDistanceToNow } from "date-fns";
 import type { Comment } from "../../../types/comment.type";
 import { useAppTheme } from "../../../theme/ThemeContext";
 import { createStyles } from "./style";
+import { getMediaUrl } from "../../../utils/getMediaUrl";
 
 
 interface CommentSectionProps {
@@ -64,7 +65,7 @@ const CommentItem = memo(({
   onDelete: (commentId: string) => void;
 }) => {
   const profileUri = item.user?.profileUrl
-    ? `${BASE_URL}/${item.user.profileUrl}`
+    ? getMediaUrl(item.user.profileUrl)
     : null;
 
   const isOwner = currentUserId === item.user.userId;
@@ -90,7 +91,7 @@ const CommentItem = memo(({
           source={
             profileUri
               ? { uri: profileUri }
-              : require("../../../assests/temp_profile.png")
+              : require("../../../assests/temp_profile.webp")
           }
           style={styles.avatar}
         />
@@ -105,8 +106,8 @@ const CommentItem = memo(({
           <Text style={styles.commentTime}>
             {item.createdAt
               ? formatDistanceToNow(new Date(item.createdAt), {
-                  addSuffix: true,
-                })
+                addSuffix: true,
+              })
               : "Just now"}
           </Text>
         </View>
@@ -151,9 +152,9 @@ export const CommentSection = memo(({
   ] = useState<string | null>(
     null
   );
-  const { theme } = useAppTheme(); 
-  
-  
+  const { theme } = useAppTheme();
+
+
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   const [
@@ -218,7 +219,7 @@ export const CommentSection = memo(({
 
   return (
     <View>
-      {}
+      { }
       <View
         style={styles.inputCard}
       >
@@ -322,7 +323,7 @@ export const CommentSection = memo(({
               style={[
                 styles.sendButton,
                 !commentText.trim() &&
-                  styles.disabledButton,
+                styles.disabledButton,
               ]}
               onPress={
                 handleSendComment
@@ -348,7 +349,7 @@ export const CommentSection = memo(({
         </View>
       </View>
 
-      {}
+      { }
       <Text
         style={styles.header}
       >
@@ -359,9 +360,9 @@ export const CommentSection = memo(({
         )
       </Text>
 
-      {}
+      { }
       {currentComments.length ===
-      0 ? (
+        0 ? (
         <View
           style={
             styles.emptyContainer
@@ -399,4 +400,4 @@ export const CommentSection = memo(({
   );
 });
 
-CommentSection.displayName = "CommentSection";
+CommentSection.displayName = "CommentSection";

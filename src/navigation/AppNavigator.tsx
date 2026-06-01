@@ -7,8 +7,6 @@ import MainTabs from './MainTabs';
 import ChatScreen from '../screens/chat';
 import NotificationScreen from '../screens/notification';
 import { RootStackParamList } from '../types/RootStackParamList';
-import { useNotifications } from '../hooks/useNotification';
-import { useUpdate } from '../hooks/useUpdate';
 import { CreatePostScreen } from '../screens/createPost';
 import UserProfileScreen from '../screens/userProfile';
 import PostEditPage from '../screens/editPost';
@@ -16,8 +14,6 @@ import PostEditPage from '../screens/editPost';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigator() {
-  useNotifications();
-  useUpdate();
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Login" component={LoginScreen} />

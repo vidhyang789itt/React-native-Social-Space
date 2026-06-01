@@ -52,6 +52,10 @@ export const createStyles = (theme: AppTheme) =>
       position: "relative",
       backgroundColor: theme.colors.background,
     },
+    composerContainer: {
+      flexShrink: 0,
+      backgroundColor: theme.colors.surface,
+    },
     loadingContainer: {
       flex: 1,
       alignItems: "center",

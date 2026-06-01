@@ -32,6 +32,8 @@ const getTabIcon = (routeName: string) => {
 export default function MainTabs() {
   const { theme } = useAppTheme(); 
   const styles = createStyles(theme);
+  useNotifications();
+  useUpdate();
   return (
     <>
       <AppHeader />
@@ -103,6 +105,8 @@ export default function MainTabs() {
 }
 import type { AppTheme } from "../theme/theme";
 import { useAppTheme } from '../theme/ThemeContext';
+import { useNotifications } from '../hooks/useNotification';
+import { useUpdate } from '../hooks/useUpdate';
 
 const createStyles = (theme: AppTheme) =>
   StyleSheet.create({

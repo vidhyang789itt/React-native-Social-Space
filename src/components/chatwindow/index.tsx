@@ -21,9 +21,8 @@ import {
   ActivityIndicator,
   Alert,
   SafeAreaView,
-  Animated,
-  Keyboard,
-  Easing,
+  Platform,
+  KeyboardAvoidingView,
 } from "react-native";
 import { Phone, Video, ArrowDown, Loader } from "lucide-react-native";
 import { createStyles } from "./style";
@@ -73,7 +72,6 @@ const ChatWindow = ({ otherUserId, groupId }: ChatRouteParams) => {
 
   const [showArrowToBottom, setShowArrowToBottom] = useState(false);
   const [replyingTo, setReplyingTo] = useState<ReplyingTo | null>(null);
-  const [keyboardHeight, setKeyboardHeight] = useState(0);
   const markAsReadCalledRef = useRef(false);
   const shouldScrollToBottomRef = useRef(true);
   const loadingTriggeredRef = useRef(false);
@@ -83,7 +81,6 @@ const ChatWindow = ({ otherUserId, groupId }: ChatRouteParams) => {
   const listHeightRef = useRef(0);
   const contentHeightRef = useRef(0);
   const scrollOffsetRef = useRef(0);
-  const keyboardPadding = useRef(new Animated.Value(0)).current;
   const dispatch = useDispatch<AppDispatch>();
 
   const {
@@ -128,36 +125,6 @@ const ChatWindow = ({ otherUserId, groupId }: ChatRouteParams) => {
   }, [activeConversation?._id]);
 
 
-  useEffect(() => {
-    const showSub = Keyboard.addListener("keyboardDidShow", (event) => {
-      const height = event.endCoordinates.height;
-
-      setKeyboardHeight(height);
-
-      Animated.timing(keyboardPadding, {
-        toValue: height,
-        duration: 160,
-        easing: Easing.out(Easing.cubic),
-        useNativeDriver: false,
-      }).start();
-    });
-
-    const hideSub = Keyboard.addListener("keyboardDidHide", () => {
-      setKeyboardHeight(0);
-
-      Animated.timing(keyboardPadding, {
-        toValue: 0,
-        duration: 140,
-        easing: Easing.out(Easing.cubic),
-        useNativeDriver: false,
-      }).start();
-    });
-
-    return () => {
-      showSub.remove();
-      hideSub.remove();
-    };
-  }, [keyboardPadding]);
 
 
   useEffect(() => {
@@ -215,27 +182,12 @@ const ChatWindow = ({ otherUserId, groupId }: ChatRouteParams) => {
       return;
     }
 
-    const delay = keyboardHeight > 0 ? 40 : 100;
-
     const timer = setTimeout(() => {
-      scrollToLatest(keyboardHeight === 0);
-    }, delay);
+      scrollToLatest(true);
+    }, 100);
 
     return () => clearTimeout(timer);
-  }, [activeMessages.length, keyboardHeight, isInitialPositioned]);
-
-
-  useEffect(() => {
-    if (keyboardHeight <= 0 || activeMessages.length === 0) {
-      return;
-    }
-
-    const timer = setTimeout(() => {
-      scrollToLatest(false);
-    }, 80);
-
-    return () => clearTimeout(timer);
-  }, [keyboardHeight, activeMessages.length]);
+  }, [activeMessages.length, isInitialPositioned]);
 
   const scrollToLatest = (animated: boolean) => {
     requestAnimationFrame(() => {
@@ -406,8 +358,8 @@ const ChatWindow = ({ otherUserId, groupId }: ChatRouteParams) => {
         setShowArrowToBottom(false);
 
         setTimeout(() => {
-          scrollToLatest(keyboardHeight === 0);
-        }, keyboardHeight > 0 ? 40 : 150);
+          scrollToLatest(true);
+        }, 150);
       }
     } catch (error) {
       console.error("❌ Error sending message:", error);
@@ -415,7 +367,7 @@ const ChatWindow = ({ otherUserId, groupId }: ChatRouteParams) => {
     } finally {
       setIsUploading(false);
     }
-  }, [mediaFiles, activeConversation, currentUser, otherUserId, replyingTo, sendMessage, keyboardHeight]);
+  }, [mediaFiles, activeConversation, currentUser, otherUserId, replyingTo, sendMessage]);
 
   const handleDeleteMessage = useCallback((messageId: string, deleteForAll: boolean) => {
     if (!activeConversation) {
@@ -445,13 +397,10 @@ const ChatWindow = ({ otherUserId, groupId }: ChatRouteParams) => {
   }
 
   return (
-    <Animated.View
-      style={[
-        styles.container,
-        {
-          paddingBottom: keyboardPadding,
-        },
-      ]}
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={50}
     >
       <View style={styles.headerContainer}>
         <View style={styles.headerContent}>
@@ -504,7 +453,6 @@ const ChatWindow = ({ otherUserId, groupId }: ChatRouteParams) => {
           onScrollToBottom={() => setShowArrowToBottom(false)}
           isLoadingMessages={isLoadingMessages}
           messagesPagination={messagesPagination}
-          keyboardHeight={keyboardHeight}
           onListLayout={(height: number) => {
             listHeightRef.current = height;
           }}
@@ -548,9 +496,8 @@ const ChatWindow = ({ otherUserId, groupId }: ChatRouteParams) => {
         inputRef={inputRef}
         onFileSelect={handleFileSelect}
         onSend={handleSend}
-        onKeyboardHeightChange={setKeyboardHeight}
       />
-    </Animated.View>
+    </KeyboardAvoidingView>
   );
 };
 

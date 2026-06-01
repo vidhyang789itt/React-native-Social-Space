@@ -23,6 +23,7 @@ import { FollowAction } from '../followAction';
 import { useNavigation } from '@react-navigation/native';
 import { useAppTheme } from '../../../theme/ThemeContext';
 import { createStyles } from './style';
+import { getMediaUrl } from '../../../utils/getMediaUrl';
 
 const COLUMN_COUNT = 3;
 
@@ -35,18 +36,18 @@ const ProfilePage = ({
 }: ProfilePageProps) => {
   const navigation = useNavigation<any>();
   const dispatch = useDispatch<AppDispatch>();
-  const { theme } = useAppTheme(); 
+  const { theme } = useAppTheme();
   const styles = createStyles(theme);
   const profile = useProfile(userId);
   const { user: currentUser } = useSelector((state: RootState) => state.auth);
 
   const isOwnProfile =
-  !userId ||
-  currentUser?.userId === userId;
+    !userId ||
+    currentUser?.userId === userId;
 
   const user = isOwnProfile
-  ? currentUser
-  : profile.viewedUser;
+    ? currentUser
+    : profile.viewedUser;
 
   const onRefresh = async () => {
     profile.refreshPosts();
@@ -57,14 +58,14 @@ const ProfilePage = ({
       if (response.assets && response.assets[0]) {
         const file = response.assets[0];
         dispatch(updateProfileImage(file as any))
-        .unwrap()
-        .then((data) => {
+          .unwrap()
+          .then((data) => {
 
-          dispatch(updateCurrentUser({
-            profileUrl: data.profileUrl,
-          }));
+            dispatch(updateCurrentUser({
+              profileUrl: data.profileUrl,
+            }));
 
-        });
+          });
       }
     });
   };
@@ -75,9 +76,9 @@ const ProfilePage = ({
     return (
       <View style={styles.headerContainer}>
         <View style={styles.coverSection}>
-          <Image 
-            source={require('../../../assests/profileBackground.png')} 
-            style={styles.coverImage} 
+          <Image
+            source={require('../../../assests/profileBackground.png')}
+            style={styles.coverImage}
           />
         </View>
 
@@ -85,9 +86,9 @@ const ProfilePage = ({
           <View style={styles.avatarWrapper}>
             <Image
               source={
-                user?.profileUrl 
-                  ? { uri: `${BASE_URL}/${user.profileUrl}` }
-                  : require('../../../assests/temp_profile.png')
+                user?.profileUrl
+                  ? { uri: getMediaUrl(user?.profileUrl) }
+                  : require('../../../assests/temp_profile.webp')
               }
               style={styles.avatar}
             />
@@ -101,7 +102,7 @@ const ProfilePage = ({
           <View style={styles.infoSection}>
             <View style={styles.headerRow}>
               <Text style={styles.username}>{user?.username || 'Loading...'}</Text>
-              
+
               <View style={styles.buttonRow}>
                 {isOwnProfile ? (
                   <TouchableOpacity style={styles.editBtn} onPress={() => profile.setIsEditing(true)}>
@@ -170,10 +171,10 @@ const ProfilePage = ({
         ListHeaderComponent={Header}
         showsVerticalScrollIndicator={false}
         refreshControl={
-          <RefreshControl 
-            refreshing={profile.loading} 
-            onRefresh={onRefresh} 
-            tintColor="#6366f1" 
+          <RefreshControl
+            refreshing={profile.loading}
+            onRefresh={onRefresh}
+            tintColor="#6366f1"
           />
         }
         ListEmptyComponent={

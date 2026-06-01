@@ -13,6 +13,7 @@ import type { AppDispatch, RootState } from "../store/store";
 import { getSocket } from "../services/socket/socketService";
 import type { ConversationType } from "../types/conversation.type";
 import { showChatNotification } from "../utils/chatnotification/showNotification";
+import { useChat } from "./useChat";
 
 export const useUpdate = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,6 +21,7 @@ export const useUpdate = () => {
   const { activeConversation, conversations } = useSelector(
     (state: RootState) => state.chat
   );
+  const { markAsRead } = useChat();
   const listenersAttachedRef = useRef(false);
 
   useEffect(() => {
@@ -46,6 +48,16 @@ export const useUpdate = () => {
       const isMyMessage = senderUserId === currentUser?.userId;
       const isCurrentOpenChat = activeConversation?._id === conversationId;
 
+      console.log(
+        "Current active:",
+        activeConversation?._id,
+        "Incoming:",
+        conversationId
+      );
+
+      if (isCurrentOpenChat && !isMyMessage && currentUser?.userId) {
+        markAsRead(conversationId, currentUser?._id, senderUserId);
+      }
       if (isMyMessage || isCurrentOpenChat) {
         return;
       }
@@ -93,7 +105,7 @@ export const useUpdate = () => {
     const handleNewGroupCreated = (group: ConversationType) => {
       console.log("recieved new group request");
       console.log(group);
-      
+
       dispatch(
         handleNewGroupReceived({
           groupId: group._id,
@@ -111,7 +123,7 @@ export const useUpdate = () => {
     socket.on("connect", handleConnect);
     socket.on("disconnect", handleDisconnect);
     socket.on("messageDeleted", handleMessageDeleted);
-    socket.on("newGroupCreated", handleNewGroupCreated); 
+    socket.on("newGroupCreated", handleNewGroupCreated);
     socket.on("messageDelivered", (data) => {
       dispatch(handleMessageDelivered(data));
     });
@@ -127,7 +139,7 @@ export const useUpdate = () => {
       socket.off("connect", handleConnect);
       socket.off("disconnect", handleDisconnect);
       socket.off("messageDeleted", handleMessageDeleted);
-      socket.off("newGroupCreated", handleNewGroupCreated); 
+      socket.off("newGroupCreated", handleNewGroupCreated);
       listenersAttachedRef.current = false;
     };
   }, [dispatch, currentUser?.userId, activeConversation?._id, conversations]);

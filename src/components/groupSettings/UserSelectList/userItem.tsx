@@ -52,7 +52,7 @@ export const UserItem = ({
           source={
             user.profileUrl
               ? { uri: user.profileUrl }
-              : require("../../../assests/temp_profile.png")
+              : require("../../../assests/temp_profile.webp")
           }
         style={styles.avatar}
       />

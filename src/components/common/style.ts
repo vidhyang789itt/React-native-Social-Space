@@ -7,6 +7,6 @@ export const createStyles = (_theme: AppTheme) =>
       justifyContent: "center",
       backgroundColor: _theme.colors.background,
       alignItems: "center",
-      paddingVertical: 40,
+      minHeight: 800,
     },
   });

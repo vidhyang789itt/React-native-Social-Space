@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import {
   View,
   TextInput,
@@ -7,8 +7,6 @@ import {
   ActivityIndicator,
   Animated,
   Alert,
-  Keyboard,
-  Easing,
 } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { launchImageLibrary, ImageLibraryOptions } from "react-native-image-picker";
@@ -23,7 +21,6 @@ interface ChatInputProps {
   inputRef: React.RefObject<TextInput | null>;
   onFileSelect: (files: { name: string; uri: string; type: string }[]) => void;
   onSend: (messageText: string) => void;
-  onKeyboardHeightChange?: (height: number) => void;
 }
 
 const ChatInput: React.FC<ChatInputProps> = ({
@@ -33,41 +30,12 @@ const ChatInput: React.FC<ChatInputProps> = ({
   inputRef,
   onFileSelect,
   onSend,
-  onKeyboardHeightChange
 }) => {
   const [text, setText] = React.useState("");
   const uploadButtonScale = useRef(new Animated.Value(1)).current;
   const sendButtonScale = useRef(new Animated.Value(1)).current;
   const { theme } = useAppTheme();
   const styles = React.useMemo(() => createStyles(theme), [theme]);
-  const keyboardOffset = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    const showSub = Keyboard.addListener("keyboardDidShow", (event) => {
-      Animated.timing(keyboardOffset, {
-        toValue: -event.endCoordinates.height,
-        duration: 220,
-        easing: Easing.out(Easing.cubic),
-        useNativeDriver: true,
-      }).start();
-      onKeyboardHeightChange?.(event.endCoordinates.height);
-    });
-
-    const hideSub = Keyboard.addListener("keyboardDidHide", () => {
-      Animated.timing(keyboardOffset, {
-        toValue: 0,
-        duration: 200,
-        easing: Easing.out(Easing.cubic),
-        useNativeDriver: true,
-      }).start();
-      onKeyboardHeightChange?.(0);
-    });
-
-    return () => {
-      showSub.remove();
-      hideSub.remove();
-    };
-  }, [keyboardOffset]);
 
 
   const handleUploadPress = async () => {

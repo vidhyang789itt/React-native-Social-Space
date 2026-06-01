@@ -11,6 +11,7 @@ import { formatDistanceToNow } from "date-fns";
 import { BASE_URL } from "../../constants/ApiRoutes";
 import { createStyles } from "./style";
 import { useAppTheme } from "../../theme/ThemeContext";
+import { getMediaUrl } from "../../utils/getMediaUrl";
 
 interface Props {
   conversation: any;
@@ -34,7 +35,7 @@ export const ConversationItem = memo(({
   const participant =
     !isGroup
       ? conversation.user1
-          ?.userId ===
+        ?.userId ===
         currentUser?.userId
         ? conversation.user2
         : conversation.user1
@@ -48,28 +49,28 @@ export const ConversationItem = memo(({
   const displayImage =
     isGroup
       ? conversation.groupImage
-        ? `${BASE_URL}/${conversation.groupImage}`
+        ? getMediaUrl(conversation.groupImage)
         : undefined
       : participant?.profileUrl
-      ? `${BASE_URL}/${participant.profileUrl}`
-      : undefined;
+        ? getMediaUrl(participant.profileUrl)
+        : undefined;
 
   const unreadCount =
     isGroup
       ? conversation
-          .groupUnreadCounts
-          ?.find(
-            (item: any) =>
-              item._id ===
-              currentUser?._id
-          )?.unreadCount ||
-        0
+        .groupUnreadCounts
+        ?.find(
+          (item: any) =>
+            item._id ===
+            currentUser?._id
+        )?.unreadCount ||
+      0
       : conversation.user1
-          ?.userId ===
+        ?.userId ===
         currentUser?.userId
-      ? conversation.unreadCountUser1 ||
+        ? conversation.unreadCountUser1 ||
         0
-      : conversation.unreadCountUser2 ||
+        : conversation.unreadCountUser2 ||
         0;
 
   const online = !isGroup && isOnline;
@@ -91,12 +92,12 @@ export const ConversationItem = memo(({
           source={
             displayImage
               ? {
-                  uri:
-                    displayImage,
-                }
+                uri:
+                  displayImage,
+              }
               : isGroup
-              ? require("../../assests/temp_profile.png")
-              : require("../../assests/temp_profile.png")
+                ? require("../../assests/temp_profile.webp")
+                : require("../../assests/temp_profile.webp")
           }
           style={
             styles.avatar
@@ -139,8 +140,8 @@ export const ConversationItem = memo(({
           style={[
             styles.lastMessage,
             unreadCount >
-              0 &&
-              styles.unreadMessage,
+            0 &&
+            styles.unreadMessage,
           ]}
         >
           {conversation.lastMessage ||
@@ -171,23 +172,23 @@ export const ConversationItem = memo(({
 
         {unreadCount >
           0 && (
-          <View
-            style={
-              styles.unreadBadge
-            }
-          >
-            <Text
+            <View
               style={
-                styles.unreadBadgeText
+                styles.unreadBadge
               }
             >
-              {unreadCount >
-              9
-                ? "9+"
-                : unreadCount}
-            </Text>
-          </View>
-        )}
+              <Text
+                style={
+                  styles.unreadBadgeText
+                }
+              >
+                {unreadCount >
+                  9
+                  ? "9+"
+                  : unreadCount}
+              </Text>
+            </View>
+          )}
       </View>
     </TouchableOpacity>
   );

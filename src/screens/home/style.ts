@@ -5,11 +5,12 @@ import type { AppTheme } from "../../theme/theme";
 
 export const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
-    container: {
-      paddingTop: 18,
-      paddingHorizontal: 16,
-      backgroundColor: theme.colors.background,
-    },
+  container: {
+    flex: 1,
+    paddingTop: 18,
+    paddingHorizontal: 16,
+    backgroundColor: theme.colors.background,
+  },
 
     listContent: {
       paddingBottom: 20,
@@ -27,19 +28,16 @@ export const createStyles = (theme: AppTheme) =>
       fontWeight: "600",
     },
 
-    emptyContainer: {
-      backgroundColor: theme.colors.surface,
-      borderRadius: 20,
-      paddingVertical: 50,
+   emptyContainer: {
+      flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      borderWidth: 1,
-      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.background,
     },
 
     emptyText: {
       color: theme.colors.textMuted,
-      fontSize: 16,
+      fontSize: 20,
       fontWeight: "600",
     },
 

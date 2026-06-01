@@ -431,7 +431,7 @@ const MessageListComponent: React.ForwardRefRenderFunction<FlatList, MessageList
   const { theme } = useAppTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  
+
   const allImages = useMemo(() => {
     const images: ImageMedia[] = [];
     messages.forEach((msg) => {
@@ -455,8 +455,8 @@ const MessageListComponent: React.ForwardRefRenderFunction<FlatList, MessageList
     if (messages.length === 0) return items;
 
     let lastDateKey = "";
-    
-    
+
+
     for (let i = messages.length - 1; i >= 0; i--) {
       const msg = messages[i];
       const dateKey = new Date(msg.createdAt).toDateString();
@@ -467,7 +467,7 @@ const MessageListComponent: React.ForwardRefRenderFunction<FlatList, MessageList
         message: msg,
       });
 
-      
+
       const nextMsg = i > 0 ? messages[i - 1] : null;
       const nextDateKey = nextMsg ? new Date(nextMsg.createdAt).toDateString() : "";
 
@@ -536,23 +536,23 @@ const MessageListComponent: React.ForwardRefRenderFunction<FlatList, MessageList
     setCurrentImageIndex(0);
     setImageModal(false);
   }, []);
-  
+
   const downloadFile = useCallback(async (url: string, fileName: string) => {
     try {
       setDownloadingFileId(fileName);
       const fullUrl = getFullUrl(url);
 
-      
+
       const localFilePath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
 
-      
+
       const result = await RNFS.downloadFile({
         fromUrl: fullUrl,
         toFile: localFilePath,
       }).promise;
 
       if (result.statusCode === 200) {
-        
+
         await Share.open({
           url: `file://${localFilePath}`,
           title: "Share File",
@@ -660,7 +660,7 @@ const MessageListComponent: React.ForwardRefRenderFunction<FlatList, MessageList
         }}
       />
 
-      {}
+      { }
       <Modal
         visible={imageModal}
         transparent
@@ -718,7 +718,7 @@ const MessageListComponent: React.ForwardRefRenderFunction<FlatList, MessageList
                   styles.navButton,
                   styles.navButtonRight,
                   currentImageIndex === allImages.length - 1 &&
-                    styles.navButtonDisabled,
+                  styles.navButtonDisabled,
                 ]}
                 onPress={handleNextImage}
                 disabled={currentImageIndex === allImages.length - 1}
@@ -758,7 +758,7 @@ const MessageListComponent: React.ForwardRefRenderFunction<FlatList, MessageList
                     style={[
                       styles.thumbnailButton,
                       currentImageIndex === idx &&
-                        styles.thumbnailButtonActive,
+                      styles.thumbnailButtonActive,
                     ]}
                   >
                     <Image

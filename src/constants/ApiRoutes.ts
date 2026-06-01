@@ -1,4 +1,4 @@
-export const BASE_URL ="http://10.0.2.2:5000";
+export const BASE_URL = "https://socialspacebackend-5.onrender.com";
 const API_PREFIX = `${BASE_URL}/api`;
 
 export const API_ROUTES = {
@@ -46,8 +46,8 @@ export const API_ROUTES = {
   REMOVE_GROUP_MEMBER: (groupId: string, userId: string) => `${API_PREFIX}/chat/group/${groupId}/members/${userId}`,
   LEAVE_GROUP: (groupId: string) => `${API_PREFIX}/chat/group/${groupId}/leave`,
   UPDATE_GROUP_INFO: (groupId: string) => `${API_PREFIX}/chat/group/${groupId}`,
-  UPDATE_GROUP_IMAGE: (convId : string) => `${API_PREFIX}/chat/group/${convId}/image`,
-  DELETEGROUP: (groupId : string) => `${API_PREFIX}/chat/group/${groupId}`,
+  UPDATE_GROUP_IMAGE: (convId: string) => `${API_PREFIX}/chat/group/${convId}/image`,
+  DELETEGROUP: (groupId: string) => `${API_PREFIX}/chat/group/${groupId}`,
   DELETEMESSAGEFORME: (messageId: string) => `${API_PREFIX}/chat/message/${messageId}/delete-for-me`,
   DELETEMESSAGEFORALL: (messageId: string) => `${API_PREFIX}/chat/message/${messageId}/delete-for-all`,
 

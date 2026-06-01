@@ -35,7 +35,7 @@ const ChatScreen = () => {
 
     loadedChatRef.current = currentChatId;
     console.log(otherUserId);
-    
+
 
     if (otherUserId) {
       dispatch(startConversation(otherUserId))

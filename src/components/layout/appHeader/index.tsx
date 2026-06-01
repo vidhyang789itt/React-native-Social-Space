@@ -51,7 +51,7 @@ export const AppHeader = () => {
 
         <View style={styles.centerSection}>
           <Image
-            source={require("../../../assests/logo.png")}
+            source={require("../../../assests/logo.jpg")}
             style={styles.logo}
           />
           <Text style={styles.appName}>SocialSpace</Text>
